@@ -1,14 +1,358 @@
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 <head>
-<title>Luavenha Dashboard</title>
+<meta charset="UTF-8">
+<title>LuaVeNha Ultimate Dashboard</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:linear-gradient(120deg,#000428,#004e92);
+color:white;
+}
+
+header{
+font-size:40px;
+text-align:center;
+padding:20px;
+}
+
+.container{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:20px;
+padding:20px;
+}
+
+.box{
+background:rgba(0,0,0,0.6);
+padding:20px;
+border-radius:12px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+td,th{
+border:1px solid white;
+padding:6px;
+text-align:center;
+}
+
+#cards{
+display:flex;
+flex-wrap:wrap;
+}
+
+.card{
+width:60px;
+height:90px;
+border-radius:6px;
+border:1px solid white;
+background:white;
+color:black;
+margin:4px;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+font-weight:bold;
+}
+
+.selected{
+background:yellow;
+}
+
+iframe{
+width:100%;
+height:200px;
+margin-top:10px;
+}
+
+footer{
+margin-top:40px;
+padding:30px;
+background:black;
+text-align:center;
+}
+
+.social a{
+display:inline-block;
+margin:10px;
+padding:15px 25px;
+font-size:18px;
+border-radius:8px;
+text-decoration:none;
+color:white;
+}
+
+.github{
+background:#333;
+}
+
+.twitter{
+background:#1DA1F2;
+}
+
+</style>
 </head>
 
-<body style="background:black;color:white;text-align:center;font-family:Arial">
+<body>
 
-<h1>Luavenha Dashboard</h1>
+<header>LuaVeNha Ultimate</header>
 
-<p>Website đã hoạt động 🚀</p>
+<div class="container">
+
+<div class="box">
+<h3>World Clock</h3>
+<div id="clock"></div>
+</div>
+
+<div class="box">
+<h3>Weather</h3>
+<div id="weather">Loading...</div>
+</div>
+
+<div class="box">
+<h3>Crypto Market</h3>
+<table id="crypto"></table>
+</div>
+
+<div class="box">
+<h3>Gold Price</h3>
+<div id="gold">Loading...</div>
+</div>
+
+<div class="box">
+<h3>Football Center</h3>
+<p>
+<a href="https://www.livescore.com">LiveScore</a><br>
+<a href="https://www.flashscore.com">FlashScore</a>
+</p>
+</div>
+
+<div class="box">
+<h3>Football News</h3>
+
+<a href="https://www.24h.com.vn/bong-da/">24h.com.vn</a><br>
+<a href="https://bongdaplus.vn">Bongdaplus.vn</a><br>
+<a href="https://vnexpress.net/the-thao">VnExpress</a>
+
+</div>
+
+<div class="box">
+<h3>Music Player</h3>
+
+<iframe src="https://www.youtube.com/embed/qDQi31U9qrE"></iframe>
+<iframe src="https://www.youtube.com/embed/EMb_IyLEQtw"></iframe>
+<iframe src="https://www.youtube.com/embed/pRpeEdMmmQ0"></iframe>
+<iframe src="https://www.youtube.com/embed/q--M-6STHlI"></iframe>
+<iframe src="https://www.youtube.com/embed/KbEM5vf0XGI"></iframe>
+
+</div>
+
+<div class="box">
+<h3>Game Tiến Lên</h3>
+
+<div id="cards"></div>
+
+<button onclick="play()">Đánh</button>
+<button onclick="pass()">Bỏ lượt</button>
+<button onclick="deal()">Chia bài</button>
+
+</div>
+
+</div>
+
+<footer>
+
+<h2>Kết nối</h2>
+
+<div class="social">
+
+<a class="github" href="https://github.com/" target="_blank">
+GitHub
+</a>
+
+<a class="twitter" href="https://x.com/" target="_blank">
+X (Twitter)
+</a>
+
+</div>
+
+<p>LuaVeNha Dashboard</p>
+
+</footer>
+
+<script>
+
+function clock(){
+
+let now=new Date()
+
+document.getElementById("clock").innerHTML=
+
+"VN: "+now.toLocaleTimeString("en-US",{timeZone:"Asia/Ho_Chi_Minh"})+"<br>"+
+
+"New York: "+now.toLocaleTimeString("en-US",{timeZone:"America/New_York"})+"<br>"+
+
+"London: "+now.toLocaleTimeString("en-US",{timeZone:"Europe/London"})+"<br>"+
+
+"Madrid: "+now.toLocaleTimeString("en-US",{timeZone:"Europe/Madrid"})+"<br>"+
+
+"Paris: "+now.toLocaleTimeString("en-US",{timeZone:"Europe/Paris"})+"<br>"+
+
+"Berlin: "+now.toLocaleTimeString("en-US",{timeZone:"Europe/Berlin"})
+
+}
+
+setInterval(clock,1000)
+
+clock()
+
+async function crypto(){
+
+let url="https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,okb&vs_currencies=usd"
+
+let r=await fetch(url)
+
+let d=await r.json()
+
+let table=document.getElementById("crypto")
+
+table.innerHTML=
+
+"<tr><th>Coin</th><th>Price</th></tr>"+
+
+"<tr><td>BTC</td><td>$"+d.bitcoin.usd+"</td></tr>"+
+
+"<tr><td>ETH</td><td>$"+d.ethereum.usd+"</td></tr>"+
+
+"<tr><td>OKB</td><td>$"+d.okb.usd+"</td></tr>"
+
+}
+
+crypto()
+
+setInterval(crypto,15000)
+
+async function weather(){
+
+let url="https://api.open-meteo.com/v1/forecast?latitude=10.82&longitude=106.63&current_weather=true"
+
+let r=await fetch(url)
+
+let d=await r.json()
+
+document.getElementById("weather").innerHTML=
+
+"Nhiệt độ: "+d.current_weather.temperature+"°C"
+
+}
+
+weather()
+
+setInterval(weather,30000)
+
+async function gold(){
+
+let url="https://api.metals.live/v1/spot"
+
+let r=await fetch(url)
+
+let d=await r.json()
+
+document.getElementById("gold").innerHTML="Gold: $"+d[0].gold
+
+}
+
+gold()
+
+setInterval(gold,30000)
+
+let suits=["♠","♥","♦","♣"]
+
+let ranks=["3","4","5","6","7","8","9","10","J","Q","K","A","2"]
+
+let deck=[]
+
+let player=[]
+
+function createDeck(){
+
+deck=[]
+
+for(let s of suits){
+
+for(let r of ranks){
+
+deck.push(r+s)
+
+}
+
+}
+
+}
+
+function shuffle(){
+
+deck.sort(()=>Math.random()-0.5)
+
+}
+
+function deal(){
+
+createDeck()
+
+shuffle()
+
+player=deck.slice(0,13)
+
+render()
+
+}
+
+function render(){
+
+let area=document.getElementById("cards")
+
+area.innerHTML=""
+
+player.forEach(c=>{
+
+let d=document.createElement("div")
+
+d.className="card"
+
+d.innerText=c
+
+d.onclick=()=>d.classList.toggle("selected")
+
+area.appendChild(d)
+
+})
+
+}
+
+function play(){
+
+alert("Bạn đánh bài!")
+
+}
+
+function pass(){
+
+alert("Bạn bỏ lượt!")
+
+}
+
+deal()
+
+</script>
 
 </body>
 </html>
