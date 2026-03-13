@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -7,29 +8,32 @@
 <style>
 
 body{
-margin:0;
-font-family:Arial;
-background:linear-gradient(120deg,#000428,#004e92);
+background:#071a2f;
 color:white;
+font-family:Arial;
+margin:0;
 }
 
 header{
-font-size:40px;
 text-align:center;
 padding:20px;
+font-size:28px;
+font-weight:bold;
+background:#021126;
 }
 
-.container{
+.grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
 gap:20px;
 padding:20px;
 }
 
-.box{
-background:rgba(0,0,0,0.6);
-padding:20px;
-border-radius:12px;
+.card{
+background:#0a2548;
+padding:15px;
+border-radius:10px;
+box-shadow:0 0 10px #000;
 }
 
 table{
@@ -38,64 +42,30 @@ border-collapse:collapse;
 }
 
 td,th{
-border:1px solid white;
+border-bottom:1px solid #444;
 padding:6px;
-text-align:center;
-}
-
-#cards{
-display:flex;
-flex-wrap:wrap;
-}
-
-.card{
-width:60px;
-height:90px;
-border-radius:6px;
-border:1px solid white;
-background:white;
-color:black;
-margin:4px;
-display:flex;
-align-items:center;
-justify-content:center;
-cursor:pointer;
-font-weight:bold;
-}
-
-.selected{
-background:yellow;
+text-align:left;
 }
 
 iframe{
 width:100%;
 height:200px;
-margin-top:10px;
+border:none;
+}
+
+canvas{
+width:100%;
+height:300px;
 }
 
 footer{
-margin-top:40px;
-padding:30px;
-background:black;
 text-align:center;
+padding:20px;
+background:#021126;
 }
 
-.social a{
-display:inline-block;
-margin:10px;
-padding:15px 25px;
-font-size:18px;
-border-radius:8px;
-text-decoration:none;
-color:white;
-}
-
-.github{
-background:#333;
-}
-
-.twitter{
-background:#1DA1F2;
+a{
+color:#4da3ff;
 }
 
 </style>
@@ -105,47 +75,60 @@ background:#1DA1F2;
 
 <header>LuaVeNha Ultimate</header>
 
-<div class="container">
+<div class="grid">
 
-<div class="box">
-<h3>World Clock</h3>
+<div class="card">
+<h3>Đồng hồ thế giới</h3>
 <div id="clock"></div>
 </div>
 
-<div class="box">
-<h3>Weather</h3>
-<div id="weather">Loading...</div>
+<div class="card">
+<h3>Thời tiết</h3>
+<div id="weather">Đang tải...</div>
 </div>
 
-<div class="box">
+<div class="card">
+<h3>Trái đất 3D</h3>
+<canvas id="earth"></canvas>
+</div>
+
+<div class="card">
 <h3>Crypto Market</h3>
-<table id="crypto"></table>
+<table id="crypto">
+<tr><th>Coin</th><th>Price</th></tr>
+</table>
 </div>
 
-<div class="box">
-<h3>Gold Price</h3>
+<div class="card">
+<h3>Top 20 Crypto</h3>
+<table id="topcrypto"></table>
+</div>
+
+<div class="card">
+<h3>Giá vàng</h3>
 <div id="gold">Loading...</div>
 </div>
 
-<div class="box">
-<h3>Football Center</h3>
-<p>
-<a href="https://www.livescore.com">LiveScore</a><br>
-<a href="https://www.flashscore.com">FlashScore</a>
-</p>
+<div class="card">
+<h3>Bảng xếp hạng bóng đá</h3>
+<div>
+<a href="https://www.flashscore.com/football/england/premier-league/">Premier League</a><br>
+<a href="https://www.flashscore.com/football/spain/laliga/">La Liga</a><br>
+<a href="https://www.flashscore.com/football/italy/serie-a/">Serie A</a><br>
+<a href="https://www.flashscore.com/football/germany/bundesliga/">Bundesliga</a><br>
+<a href="https://www.flashscore.com/football/france/ligue-1/">Ligue 1</a>
+</div>
 </div>
 
-<div class="box">
-<h3>Football News</h3>
-
-<a href="https://www.24h.com.vn/bong-da/">24h.com.vn</a><br>
-<a href="https://bongdaplus.vn">Bongdaplus.vn</a><br>
+<div class="card">
+<h3>Tin tức bóng đá</h3>
+<a href="https://24h.com.vn/bong-da/">24h.com.vn</a><br>
+<a href="https://bongdaplus.vn/">Bongdaplus.vn</a><br>
 <a href="https://vnexpress.net/the-thao">VnExpress</a>
-
 </div>
 
-<div class="box">
-<h3>Music Player</h3>
+<div class="card">
+<h3>Nhạc</h3>
 
 <iframe src="https://www.youtube.com/embed/qDQi31U9qrE"></iframe>
 <iframe src="https://www.youtube.com/embed/EMb_IyLEQtw"></iframe>
@@ -155,202 +138,127 @@ background:#1DA1F2;
 
 </div>
 
-<div class="box">
-<h3>Game Tiến Lên</h3>
-
-<div id="cards"></div>
-
-<button onclick="play()">Đánh</button>
-<button onclick="pass()">Bỏ lượt</button>
-<button onclick="deal()">Chia bài</button>
-
-</div>
-
 </div>
 
 <footer>
 
-<h2>Kết nối</h2>
-
-<div class="social">
-
-<a class="github" href="https://github.com/" target="_blank">
-GitHub
-</a>
-
-<a class="twitter" href="https://x.com/" target="_blank">
-X (Twitter)
-</a>
-
-</div>
-
-<p>LuaVeNha Dashboard</p>
+<a href="https://github.com">GitHub</a> |
+<a href="https://x.com">X</a>
 
 </footer>
 
 <script>
 
-function clock(){
+function updateClock(){
 
-let now=new Date()
+let now=new Date();
+
+let options={
+hour:'2-digit',
+minute:'2-digit',
+second:'2-digit'
+};
 
 document.getElementById("clock").innerHTML=
 
-"VN: "+now.toLocaleTimeString("en-US",{timeZone:"Asia/Ho_Chi_Minh"})+"<br>"+
-
+"VN: "+now.toLocaleTimeString("vi-VN",options)+"<br>"+
 "New York: "+now.toLocaleTimeString("en-US",{timeZone:"America/New_York"})+"<br>"+
-
-"London: "+now.toLocaleTimeString("en-US",{timeZone:"Europe/London"})+"<br>"+
-
-"Madrid: "+now.toLocaleTimeString("en-US",{timeZone:"Europe/Madrid"})+"<br>"+
-
-"Paris: "+now.toLocaleTimeString("en-US",{timeZone:"Europe/Paris"})+"<br>"+
-
-"Berlin: "+now.toLocaleTimeString("en-US",{timeZone:"Europe/Berlin"})
+"London: "+now.toLocaleTimeString("en-GB",{timeZone:"Europe/London"})+"<br>"+
+"Madrid: "+now.toLocaleTimeString("es-ES",{timeZone:"Europe/Madrid"})+"<br>"+
+"Paris: "+now.toLocaleTimeString("fr-FR",{timeZone:"Europe/Paris"})+"<br>"+
+"Berlin: "+now.toLocaleTimeString("de-DE",{timeZone:"Europe/Berlin"});
 
 }
 
-setInterval(clock,1000)
-
-clock()
+setInterval(updateClock,1000);
 
 async function crypto(){
 
-let url="https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,okb&vs_currencies=usd"
+let res=await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,okb,sui,pi-network&vs_currencies=usd");
 
-let r=await fetch(url)
+let data=await res.json();
 
-let d=await r.json()
+let html="";
 
-let table=document.getElementById("crypto")
+for(let c in data){
 
-table.innerHTML=
-
-"<tr><th>Coin</th><th>Price</th></tr>"+
-
-"<tr><td>BTC</td><td>$"+d.bitcoin.usd+"</td></tr>"+
-
-"<tr><td>ETH</td><td>$"+d.ethereum.usd+"</td></tr>"+
-
-"<tr><td>OKB</td><td>$"+d.okb.usd+"</td></tr>"
+html+="<tr><td>"+c+"</td><td>"+data[c].usd+" $</td></tr>";
 
 }
 
-crypto()
-
-setInterval(crypto,15000)
-
-async function weather(){
-
-let url="https://api.open-meteo.com/v1/forecast?latitude=10.82&longitude=106.63&current_weather=true"
-
-let r=await fetch(url)
-
-let d=await r.json()
-
-document.getElementById("weather").innerHTML=
-
-"Nhiệt độ: "+d.current_weather.temperature+"°C"
+document.getElementById("crypto").innerHTML="<tr><th>Coin</th><th>Price</th></tr>"+html;
 
 }
 
-weather()
+setInterval(crypto,15000);
 
-setInterval(weather,30000)
+async function topCrypto(){
+
+let res=await fetch("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1");
+
+let data=await res.json();
+
+let html="<tr><th>#</th><th>Coin</th><th>Price</th></tr>";
+
+data.forEach(c=>{
+
+html+="<tr><td>"+c.market_cap_rank+"</td><td>"+c.name+"</td><td>"+c.current_price+"$</td></tr>";
+
+});
+
+document.getElementById("topcrypto").innerHTML=html;
+
+}
+
+setInterval(topCrypto,20000);
 
 async function gold(){
 
-let url="https://api.metals.live/v1/spot"
+let res=await fetch("https://api.metals.live/v1/spot");
 
-let r=await fetch(url)
+let data=await res.json();
 
-let d=await r.json()
-
-document.getElementById("gold").innerHTML="Gold: $"+d[0].gold
+document.getElementById("gold").innerHTML="Gold: "+data[0].gold+" USD";
 
 }
 
-gold()
+setInterval(gold,30000);
 
-setInterval(gold,30000)
+updateClock();
+crypto();
+topCrypto();
+gold();
 
-let suits=["♠","♥","♦","♣"]
+let canvas=document.getElementById("earth");
+let ctx=canvas.getContext("2d");
 
-let ranks=["3","4","5","6","7","8","9","10","J","Q","K","A","2"]
+let angle=0;
 
-let deck=[]
+function drawEarth(){
 
-let player=[]
+canvas.width=300;
+canvas.height=300;
 
-function createDeck(){
+ctx.clearRect(0,0,300,300);
 
-deck=[]
+ctx.beginPath();
+ctx.arc(150,150,100,0,Math.PI*2);
+ctx.fillStyle="#0b3d91";
+ctx.fill();
 
-for(let s of suits){
+ctx.fillStyle="#1aff00";
 
-for(let r of ranks){
+ctx.beginPath();
+ctx.arc(150+Math.cos(angle)*60,150+Math.sin(angle)*40,20,0,Math.PI*2);
+ctx.fill();
 
-deck.push(r+s)
+angle+=0.02;
 
-}
-
-}
-
-}
-
-function shuffle(){
-
-deck.sort(()=>Math.random()-0.5)
-
-}
-
-function deal(){
-
-createDeck()
-
-shuffle()
-
-player=deck.slice(0,13)
-
-render()
+requestAnimationFrame(drawEarth);
 
 }
 
-function render(){
-
-let area=document.getElementById("cards")
-
-area.innerHTML=""
-
-player.forEach(c=>{
-
-let d=document.createElement("div")
-
-d.className="card"
-
-d.innerText=c
-
-d.onclick=()=>d.classList.toggle("selected")
-
-area.appendChild(d)
-
-})
-
-}
-
-function play(){
-
-alert("Bạn đánh bài!")
-
-}
-
-function pass(){
-
-alert("Bạn bỏ lượt!")
-
-}
-
-deal()
+drawEarth();
 
 </script>
 
